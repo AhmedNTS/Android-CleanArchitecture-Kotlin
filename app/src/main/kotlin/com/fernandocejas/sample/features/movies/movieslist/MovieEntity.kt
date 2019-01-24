@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.login
+package com.fernandocejas.sample.features.movies.movieslist
 
-import android.content.Context
-import android.content.Intent
-import com.fernandocejas.sample.core.platform.BaseActivity
-
-class LoginActivity : BaseActivity() {
-  companion object {
-    fun callingIntent(context: Context) = Intent(context, LoginActivity::class.java)
-  }
-
-  override fun fragment() = LoginFragment()
+data class MovieEntity(private val id: Int, private val poster: String) {
+    fun toMovie() = Movie(id, poster)
 }

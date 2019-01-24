@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.movieslist
 
-import android.arch.lifecycle.MutableLiveData
+import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
-import com.fernandocejas.sample.core.platform.BaseViewModel
+import com.fernandocejas.sample.features.movies.MoviesRepository
 import javax.inject.Inject
 
-class MoviesViewModel
-@Inject constructor(private val getMovies: GetMovies) : BaseViewModel() {
+class GetMovies
+@Inject constructor(private val moviesRepository: MoviesRepository) : UseCase<List<Movie>, None>() {
 
-    var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
-
-    fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
-
-    private fun handleMovieList(movies: List<Movie>) {
-        this.movies.value = movies.map { MovieView(it.id, it.poster) }
-    }
+  override suspend fun run(params: None) = moviesRepository.movies()
 }

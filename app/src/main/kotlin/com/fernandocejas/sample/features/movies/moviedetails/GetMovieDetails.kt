@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.moviedetails
 
-import com.fernandocejas.sample.features.movies.GetMovieDetails.Params
+import com.fernandocejas.sample.features.movies.moviedetails.GetMovieDetails.Params
 import com.fernandocejas.sample.core.interactor.UseCase
+import com.fernandocejas.sample.features.movies.MoviesRepository
 import javax.inject.Inject
 
 class GetMovieDetails

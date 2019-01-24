@@ -17,6 +17,9 @@ package com.fernandocejas.sample.features.movies
 
 import com.fernandocejas.sample.AndroidTest
 import com.fernandocejas.sample.core.functional.Either.Right
+import com.fernandocejas.sample.features.movies.moviedetails.GetMovieDetails
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetails
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetailsViewModel
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
@@ -35,12 +38,17 @@ class MovieDetailsViewModelTest : AndroidTest() {
 
     @Before
     fun setUp() {
-        movieDetailsViewModel = MovieDetailsViewModel(getMovieDetails, playMovie)
+        movieDetailsViewModel =
+            MovieDetailsViewModel(
+                getMovieDetails, playMovie
+            )
     }
 
     @Test fun `loading movie details should update live data`() {
-        val movieDetails = MovieDetails(0, "IronMan", "poster", "summary",
-                "cast", "director", 2018, "trailer")
+        val movieDetails = MovieDetails(
+            0, "IronMan", "poster", "summary",
+            "cast", "director", 2018, "trailer"
+        )
         given { runBlocking { getMovieDetails.run(eq(any())) } }.willReturn(Right(movieDetails))
 
         movieDetailsViewModel.movieDetails.observeForever {

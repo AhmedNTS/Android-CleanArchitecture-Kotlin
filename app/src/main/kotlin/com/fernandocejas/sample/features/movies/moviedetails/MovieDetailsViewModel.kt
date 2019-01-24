@@ -13,26 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.moviedetails
 
 import android.arch.lifecycle.MutableLiveData
-import com.fernandocejas.sample.features.movies.GetMovieDetails.Params
+import com.fernandocejas.sample.features.movies.moviedetails.GetMovieDetails.Params
 import com.fernandocejas.sample.core.platform.BaseViewModel
+import com.fernandocejas.sample.features.movies.PlayMovie
 import javax.inject.Inject
 
 class MovieDetailsViewModel
 @Inject constructor(private val getMovieDetails: GetMovieDetails,
-                    private val playMovie: PlayMovie) : BaseViewModel() {
+                    private val playMovie: PlayMovie
+) : BaseViewModel() {
 
     var movieDetails: MutableLiveData<MovieDetailsView> = MutableLiveData()
 
     fun loadMovieDetails(movieId: Int) =
             getMovieDetails(Params(movieId)) { it.either(::handleFailure, ::handleMovieDetails) }
 
-    fun playMovie(url: String) = playMovie(PlayMovie.Params(url))
+    fun playMovie(url: String) = playMovie(
+        PlayMovie.Params(url)
+    )
 
     private fun handleMovieDetails(movie: MovieDetails) {
-        this.movieDetails.value = MovieDetailsView(movie.id, movie.title, movie.poster,
-                movie.summary, movie.cast, movie.director, movie.year, movie.trailer)
+        this.movieDetails.value =
+            MovieDetailsView(
+                movie.id, movie.title, movie.poster,
+                movie.summary, movie.cast, movie.director, movie.year, movie.trailer
+            )
     }
 }

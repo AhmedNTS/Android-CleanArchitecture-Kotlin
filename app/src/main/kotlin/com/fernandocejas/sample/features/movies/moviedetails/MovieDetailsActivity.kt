@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.moviedetails
 
 import android.content.Context
 import android.content.Intent
 import com.fernandocejas.sample.core.platform.BaseActivity
+import com.fernandocejas.sample.features.movies.movieslist.MovieView
 
 class MovieDetailsActivity : BaseActivity() {
 
@@ -26,10 +27,16 @@ class MovieDetailsActivity : BaseActivity() {
 
         fun callingIntent(context: Context, movie: MovieView): Intent {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(INTENT_EXTRA_PARAM_MOVIE, movie)
+            intent.putExtra(
+                INTENT_EXTRA_PARAM_MOVIE, movie)
             return intent
         }
     }
 
-    override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_MOVIE))
+    override fun fragment() =
+        MovieDetailsFragment.forMovie(
+            intent.getParcelableExtra(
+                INTENT_EXTRA_PARAM_MOVIE
+            )
+        )
 }

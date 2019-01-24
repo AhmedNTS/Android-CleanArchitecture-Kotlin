@@ -21,13 +21,15 @@ import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
 import com.fernandocejas.sample.core.exception.Failure.ServerError
 import com.fernandocejas.sample.core.extension.empty
 import com.fernandocejas.sample.core.functional.Either
-import com.fernandocejas.sample.core.functional.Either.Left
 import com.fernandocejas.sample.core.functional.Either.Right
 import com.fernandocejas.sample.core.platform.NetworkHandler
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetails
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetailsEntity
+import com.fernandocejas.sample.features.movies.movieslist.Movie
+import com.fernandocejas.sample.features.movies.movieslist.MovieEntity
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
-import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
@@ -67,14 +69,18 @@ class MoviesRepositoryTest : UnitTest() {
 
     @Test fun `should get movie list from service`() {
         given { networkHandler.isConnected }.willReturn(true)
-        given { moviesResponse.body() }.willReturn(listOf(MovieEntity(1, "poster")))
+        given { moviesResponse.body() }.willReturn(listOf(
+            MovieEntity(1, "poster")
+        ))
         given { moviesResponse.isSuccessful }.willReturn(true)
         given { moviesCall.execute() }.willReturn(moviesResponse)
         given { service.movies() }.willReturn(moviesCall)
 
         val movies = networkRepository.movies()
 
-        movies shouldEqual Right(listOf(Movie(1, "poster")))
+        movies shouldEqual Right(listOf(
+            Movie(1, "poster")
+        ))
         verify(service).movies()
     }
 
@@ -129,23 +135,31 @@ class MoviesRepositoryTest : UnitTest() {
 
         val movieDetails = networkRepository.movieDetails(1)
 
-        movieDetails shouldEqual Right(MovieDetails.empty())
+        movieDetails shouldEqual Right(
+            MovieDetails.empty())
         verify(service).movieDetails(1)
     }
 
     @Test fun `should get movie details from service`() {
         given { networkHandler.isConnected }.willReturn(true)
         given { movieDetailsResponse.body() }.willReturn(
-                MovieDetailsEntity(8, "title", String.empty(), String.empty(),
-                        String.empty(), String.empty(), 0, String.empty()))
+            MovieDetailsEntity(
+                8, "title", String.empty(), String.empty(),
+                String.empty(), String.empty(), 0, String.empty()
+            )
+        )
         given { movieDetailsResponse.isSuccessful }.willReturn(true)
         given { movieDetailsCall.execute() }.willReturn(movieDetailsResponse)
         given { service.movieDetails(1) }.willReturn(movieDetailsCall)
 
         val movieDetails = networkRepository.movieDetails(1)
 
-        movieDetails shouldEqual Right(MovieDetails(8, "title", String.empty(), String.empty(),
-                String.empty(), String.empty(), 0, String.empty()))
+        movieDetails shouldEqual Right(
+            MovieDetails(
+                8, "title", String.empty(), String.empty(),
+                String.empty(), String.empty(), 0, String.empty()
+            )
+        )
         verify(service).movieDetails(1)
     }
 

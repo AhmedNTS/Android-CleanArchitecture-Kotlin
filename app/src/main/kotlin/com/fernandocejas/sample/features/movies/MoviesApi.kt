@@ -15,6 +15,8 @@
  */
 package com.fernandocejas.sample.features.movies
 
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetailsEntity
+import com.fernandocejas.sample.features.movies.movieslist.MovieEntity
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

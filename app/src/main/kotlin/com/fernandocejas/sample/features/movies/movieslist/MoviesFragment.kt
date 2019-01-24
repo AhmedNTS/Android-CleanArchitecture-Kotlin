@@ -13,32 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.movieslist
 
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import com.fernandocejas.sample.core.platform.BaseFragment
 import com.fernandocejas.sample.R
-import com.fernandocejas.sample.features.movies.MovieFailure.ListNotAvailable
 import com.fernandocejas.sample.core.exception.Failure
 import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
 import com.fernandocejas.sample.core.exception.Failure.ServerError
-import com.fernandocejas.sample.core.extension.failure
-import com.fernandocejas.sample.core.extension.invisible
-import com.fernandocejas.sample.core.extension.observe
-import com.fernandocejas.sample.core.extension.viewModel
-import com.fernandocejas.sample.core.extension.visible
+import com.fernandocejas.sample.core.extension.*
 import com.fernandocejas.sample.core.navigation.Navigator
-import kotlinx.android.synthetic.main.fragment_movies.emptyView
-import kotlinx.android.synthetic.main.fragment_movies.movieList
+import com.fernandocejas.sample.core.platform.BaseFragment
+import com.fernandocejas.sample.features.movies.MovieFailure.ListNotAvailable
+import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
 
 class MoviesFragment : BaseFragment() {
 
-    @Inject lateinit var navigator: Navigator
-    @Inject lateinit var moviesAdapter: MoviesAdapter
+    @Inject
+    lateinit var navigator: Navigator
+    @Inject
+    lateinit var moviesAdapter: MoviesAdapter
 
     private lateinit var moviesViewModel: MoviesViewModel
 
@@ -65,7 +62,8 @@ class MoviesFragment : BaseFragment() {
         movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         movieList.adapter = moviesAdapter
         moviesAdapter.clickListener = { movie, navigationExtras ->
-                    navigator.showMovieDetails(activity!!, movie, navigationExtras) }
+            navigator.showMovieDetails(activity!!, movie, navigationExtras)
+        }
     }
 
     private fun loadMoviesList() {

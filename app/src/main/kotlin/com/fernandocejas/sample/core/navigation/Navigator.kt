@@ -25,9 +25,9 @@ import android.view.View
 import android.widget.ImageView
 import com.fernandocejas.sample.features.login.Authenticator
 import com.fernandocejas.sample.features.login.LoginActivity
-import com.fernandocejas.sample.features.movies.MovieDetailsActivity
-import com.fernandocejas.sample.features.movies.MovieView
-import com.fernandocejas.sample.features.movies.MoviesActivity
+import com.fernandocejas.sample.features.movies.moviedetails.MovieDetailsActivity
+import com.fernandocejas.sample.features.movies.movieslist.MovieView
+import com.fernandocejas.sample.features.movies.movieslist.MoviesActivity
 import com.fernandocejas.sample.core.extension.empty
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,7 +46,8 @@ class Navigator
         }
     }
 
-    private fun showMovies(context: Context) = context.startActivity(MoviesActivity.callingIntent(context))
+    private fun showMovies(context: Context) = context.startActivity(
+        MoviesActivity.callingIntent(context))
 
     fun showMovieDetails(activity: FragmentActivity, movie: MovieView, navigationExtras: Extras) {
         val intent = MovieDetailsActivity.callingIntent(activity, movie)

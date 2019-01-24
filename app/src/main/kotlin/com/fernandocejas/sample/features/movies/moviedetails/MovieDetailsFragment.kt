@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.moviedetails
 
 import android.os.Bundle
 import android.view.View
@@ -30,6 +30,7 @@ import com.fernandocejas.sample.core.extension.loadFromUrl
 import com.fernandocejas.sample.core.extension.loadUrlAndPostponeEnterTransition
 import com.fernandocejas.sample.core.extension.observe
 import com.fernandocejas.sample.core.extension.viewModel
+import com.fernandocejas.sample.features.movies.movieslist.MovieView
 import kotlinx.android.synthetic.main.fragment_movie_details.movieCast
 import kotlinx.android.synthetic.main.fragment_movie_details.movieDetails
 import kotlinx.android.synthetic.main.fragment_movie_details.movieDirector
@@ -47,9 +48,11 @@ class MovieDetailsFragment : BaseFragment() {
         private const val PARAM_MOVIE = "param_movie"
 
         fun forMovie(movie: MovieView): MovieDetailsFragment {
-            val movieDetailsFragment = MovieDetailsFragment()
+            val movieDetailsFragment =
+                MovieDetailsFragment()
             val arguments = Bundle()
-            arguments.putParcelable(PARAM_MOVIE, movie)
+            arguments.putParcelable(
+                PARAM_MOVIE, movie)
             movieDetailsFragment.arguments = arguments
 
             return movieDetailsFragment
@@ -76,7 +79,9 @@ class MovieDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (firstTimeCreated(savedInstanceState)) {
-            movieDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_MOVIE) as MovieView).id)
+            movieDetailsViewModel.loadMovieDetails((arguments?.get(
+                PARAM_MOVIE
+            ) as MovieView).id)
         } else {
             movieDetailsAnimator.scaleUpView(moviePlay)
             movieDetailsAnimator.cancelTransition(moviePoster)
